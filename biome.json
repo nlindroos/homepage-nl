@@ -78,7 +78,16 @@
     {
       "includes": ["**/*.astro"],
       "linter": {
-        "enabled": false
+        "rules": {
+          "correctness": {
+            "noUnusedVariables": "off",
+            "noUnusedImports": "off"
+          },
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
       }
     }
   ]

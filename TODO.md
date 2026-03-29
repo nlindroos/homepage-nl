@@ -1,0 +1,2 @@
+- lint-staged
+- agents.md file
