@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../config";
+---
+
+<BaseLayout title={SITE.title} description={SITE.description}>
+  <main>
+    <h1>Welcome</h1>
+    <p>This is your homepage.</p>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+    color: #666;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    p {
+      color: #aaa;
+    }
+  }
+</style>
