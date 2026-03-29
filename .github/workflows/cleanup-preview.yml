@@ -1,0 +1,41 @@
+name: Cleanup Cloudflare Preview
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Delete Cloudflare Preview Deployment
+        run: |
+          # Get all deployments for the project
+          DEPLOYMENTS=$(curl -s -X GET \
+            "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/homepage-nl/deployments" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json")
+
+          # Find deployments matching the branch name
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          echo "Looking for deployments from branch: $BRANCH_NAME"
+
+          # Extract deployment IDs for this branch and delete them
+          echo "$DEPLOYMENTS" | jq -r --arg branch "$BRANCH_NAME" \
+            '.result[] | select(.deployment_trigger.metadata.branch == $branch) | .id' | \
+          while read -r DEPLOYMENT_ID; do
+            if [ -n "$DEPLOYMENT_ID" ]; then
+              echo "Deleting deployment: $DEPLOYMENT_ID"
+              curl -X DELETE \
+                "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/homepage-nl/deployments/$DEPLOYMENT_ID" \
+                -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+                -H "Content-Type: application/json"
+              echo "Deployment $DEPLOYMENT_ID deleted"
+            fi
+          done
+
+          echo "Cleanup complete for branch: $BRANCH_NAME"
