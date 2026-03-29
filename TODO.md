@@ -1,2 +1,3 @@
 - lint-staged
 - agents.md file
+- knip
