@@ -9,12 +9,17 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "biome check .",
+    "check:write": "biome check --write .",
+    "format": "biome format --write .",
+    "lint": "biome lint ."
   },
   "dependencies": {
     "astro": "^6.1.1"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.9",
     "lightningcss": "1.32.0"
   }
 }
