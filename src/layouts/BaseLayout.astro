@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import SiteHeader from "../components/SiteHeader.astro";
 
 interface Props {
@@ -37,12 +38,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:description" content={description} />
 
     <!-- Fonts: Nocturnal Monograph design system -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+    <Font cssVariable="--font-newsreader" preload />
+    <Font cssVariable="--font-inter" preload />
   </head>
   <body>
     <SiteHeader />
@@ -52,8 +49,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <style is:global>
   :root {
-    --font-display: "Newsreader", serif;
-    --font-body: "Inter", system-ui, -apple-system, sans-serif;
+    --font-display: var(--font-newsreader);
+    --font-body: var(--font-inter);
     --space-unit: 1rem;
     --space-sm: calc(var(--space-unit) * 0.5);
     --space-md: var(--space-unit);
@@ -71,6 +68,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   [data-theme="dark"] {
+    color-scheme: dark;
+
     --color-bg-primary: #0a1726;
     --color-bg-secondary: #0f2236;
     --color-text-primary: #f4f7fb;
@@ -84,6 +83,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   [data-theme="light"] {
+    color-scheme: light;
+
     --color-bg-primary: #f7fafc;
     --color-bg-secondary: #fff;
     --color-text-primary: #0a1726;
@@ -139,6 +140,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   /* Reset end */
 
   /* Base */
+  html {
+    background-color: var(--color-bg-primary);
+  }
+
   body {
     min-height: 100dvh;
     display: flex;
