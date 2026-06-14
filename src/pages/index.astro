@@ -1,36 +1,212 @@
 ---
+import { Image } from "astro:assets";
+import cutout from "../assets/cutout.webp";
+import Button from "../components/Button.astro";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
+  <header>
+    <span class="logo">Nocturnal Muse</span>
+    <button
+      type="button"
+      class="contrast-toggle"
+      aria-label="Switch to light mode"
+      data-theme-toggle
+    >
+      ◑
+    </button>
+  </header>
+
   <main>
-    <h1>Welcome</h1>
-    <p>This is your homepage.</p>
+    <div class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">Volume I — The Archive</p>
+        <h1>
+          <span class="line-white">Design for the</span>
+          <span class="line-accent">patient eye.</span>
+        </h1>
+        <div class="body-copy">
+          <p>
+            In an era defined by frantic velocity and fleeting attention, true
+            luxury is found in the deliberate pause. We craft digital
+            environments that demand reflection, rejecting the noise in favor of
+            deep, intentional curation.
+          </p>
+          <p>
+            This is not merely aesthetics; it is an architectural philosophy.
+            High contrast, vast expanses of void, and typography that whispers
+            rather than shouts. Here, form does not follow function — it
+            elevates it into something enduring.
+          </p>
+        </div>
+        <Button href="#">Enter the Archive</Button>
+      </div>
+
+      <div class="hero-image">
+        <Image src={cutout} alt="Fig 1. Intentionality" class="portrait" />
+        <span class="fig-caption">Fig 1. Intentionality</span>
+      </div>
+    </div>
   </main>
+
+  <footer>
+    <p>© 2024 Nocturnal Muse. Curated for the patient eye.</p>
+  </footer>
 </BaseLayout>
 
 <style>
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+  }
+
+  .contrast-toggle {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+
   main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .hero {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: center;
+
+    /* min-height: 80vh; */
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    flex: 1;
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    max-width: none;
   }
 
   h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    gap: 0;
   }
 
-  p {
-    font-size: 1.125rem;
-    color: #666;
+  .line-white {
+    color: var(--color-text-primary);
   }
 
-  @media (prefers-color-scheme: dark) {
-    p {
-      color: #aaa;
+  .line-accent {
+    color: var(--color-accent);
+  }
+
+  .body-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .body-copy p {
+    max-width: none;
+  }
+
+  .hero-image {
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    width: 140px;
+  }
+
+  .portrait {
+    width: 140px;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    display: block;
+    border-radius: var(--border-radius);
+  }
+
+  .fig-caption {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    padding-left: var(--space-sm);
+    align-self: flex-end;
+    white-space: nowrap;
+  }
+
+  footer {
+    padding: var(--space-md) var(--space-lg);
+    border-top: 1px solid var(--color-divider);
+  }
+
+  footer p {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+
+  @media (width <= 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-image {
+      order: -1;
+      max-height: 50vh;
     }
   }
 </style>
+
+<script>
+  const toggle = document.querySelector("[data-theme-toggle]");
+  const root = document.documentElement;
+
+  function syncToggleLabel() {
+    if (!toggle) return;
+    const isLight = root.dataset.theme === "light";
+    toggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark mode" : "Switch to light mode",
+    );
+  }
+
+  toggle?.addEventListener("click", () => {
+    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    syncToggleLabel();
+  });
+
+  syncToggleLabel();
+</script>

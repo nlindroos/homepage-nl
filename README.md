@@ -7,7 +7,7 @@ Personal homepage built with Astro and TypeScript.
 - **Astro** - Static site framework
 - **TypeScript** - Strict mode enabled
 - **Plain CSS** - Scoped styles, no framework
-- Node 22+ required
+- Node 24+ required
 
 ## Getting Started
 

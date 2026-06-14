@@ -9,7 +9,9 @@
     "defaults",
     "not dead",
     "not op_mini all",
-    "not kaios > 0"
+    "not kaios > 0",
+    "not UCAndroid > 0",
+    "not QQAndroid > 0"
   ],
   "scripts": {
     "dev": "astro dev",
