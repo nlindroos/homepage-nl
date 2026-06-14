@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import cutout from "../assets/cutout.webp";
+import TextLink from "../components/TextLink.astro";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
@@ -43,11 +44,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             elevates it into something enduring.
           </p> -->
         </div>
-        <!-- <Button href="#">What I have done</Button> -->
+        <TextLink href="/experience">See where I've delivered</TextLink>
       </div>
 
       <div class="hero-image">
-        <Image src={cutout} alt="Portait" class="portrait" />
+        <Image src={cutout} alt="Portait" class="portrait" loading="eager" />
         <span class="caption fig-caption">Fig 1. Intentionality</span>
       </div>
     </div>
@@ -67,8 +68,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     display: flex;
     gap: var(--space-xl);
     align-items: center;
-
-    /* max-width: 876px; */
     max-width: 1110px;
     margin-left: auto;
     margin-right: auto;
