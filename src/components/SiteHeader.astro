@@ -1,0 +1,351 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <span class="logo">
+    <span class="logo-default">You are here.</span>
+    <span class="logo-hover" aria-hidden="true">and that's great.</span>
+  </span>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+    <a
+      href="/experience"
+      aria-current={currentPath.startsWith("/experience") ? "page" : undefined}
+    >
+      Experience
+    </a>
+  </nav>
+  <button
+    type="button"
+    class="contrast-toggle"
+    aria-label="Switch to light mode"
+    data-theme-toggle
+  >
+    ◑
+  </button>
+  <button
+    type="button"
+    class="nav-toggle"
+    popovertarget="mobile-nav"
+    aria-label="Open menu"
+  >
+    <span class="bar bar-top"></span>
+    <span class="bar bar-mid"></span>
+    <span class="bar bar-bottom"></span>
+  </button>
+  <nav id="mobile-nav" popover="auto" class="mobile-nav" aria-label="Primary">
+    <button
+      type="button"
+      class="nav-close"
+      popovertarget="mobile-nav"
+      popovertargetaction="hide"
+      aria-label="Close menu"
+    >
+      ✕
+    </button>
+    <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+    <a
+      href="/experience"
+      aria-current={currentPath.startsWith("/experience") ? "page" : undefined}
+    >
+      Experience
+    </a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .logo {
+    position: relative;
+    display: inline-grid;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+  }
+
+  .logo-default,
+  .logo-hover {
+    grid-area: 1 / 1;
+    transition: opacity var(--transition) 50ms;
+  }
+
+  .logo-hover {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-default,
+  .logo:hover .logo-hover {
+    transition-delay: calc(var(--transition-duration) * 2);
+  }
+
+  .logo:hover .logo-default {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-hover {
+    opacity: 1;
+  }
+
+  .contrast-toggle {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .site-nav a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition: color var(--transition);
+  }
+
+  .site-nav a:hover,
+  .site-nav a:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .site-nav a[aria-current="page"] {
+    color: var(--color-accent);
+    text-shadow: 0 0 0.8rem
+      color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+
+  .nav-toggle {
+    display: none;
+    position: relative;
+    width: 1.5rem;
+    height: 1.125rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+  }
+
+  .nav-toggle:hover,
+  .nav-toggle:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: currentcolor;
+    transition:
+      transform var(--transition),
+      opacity var(--transition),
+      top var(--transition),
+      bottom var(--transition);
+  }
+
+  .bar-top {
+    top: 0;
+  }
+
+  .bar-mid {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .bar-bottom {
+    bottom: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar-top {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar-mid {
+    opacity: 0;
+  }
+
+  .nav-toggle[aria-expanded="true"] .bar-bottom {
+    bottom: 50%;
+    transform: translateY(50%) rotate(-45deg);
+  }
+
+  .mobile-nav {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: min(80vw, 320px);
+    height: 100dvh;
+    margin: 0;
+    padding: var(--space-xl) var(--space-lg);
+    border: none;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    transform: translateX(100%);
+    transition:
+      transform var(--transition),
+      overlay var(--transition) allow-discrete,
+      display var(--transition) allow-discrete;
+  }
+
+  .mobile-nav:popover-open {
+    transform: translateX(0);
+  }
+
+  @starting-style {
+    .mobile-nav:popover-open {
+      transform: translateX(100%);
+    }
+  }
+
+  .mobile-nav::backdrop {
+    background: rgb(0 0 0 / 0%);
+    transition:
+      background var(--transition),
+      overlay var(--transition) allow-discrete,
+      display var(--transition) allow-discrete;
+  }
+
+  .mobile-nav:popover-open::backdrop {
+    background: rgb(0 0 0 / 50%);
+  }
+
+  @starting-style {
+    .mobile-nav:popover-open::backdrop {
+      background: rgb(0 0 0 / 0%);
+    }
+  }
+
+  .nav-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--color-text-secondary);
+  }
+
+  .nav-close:hover,
+  .nav-close:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .mobile-nav a {
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition:
+      color var(--transition),
+      opacity var(--transition),
+      transform var(--transition);
+  }
+
+  .mobile-nav a:hover,
+  .mobile-nav a:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .mobile-nav a[aria-current="page"] {
+    color: var(--color-accent);
+    text-shadow: 0 0 0.8rem
+      color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+
+  .mobile-nav:popover-open a {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @starting-style {
+    .mobile-nav:popover-open a {
+      opacity: 0;
+      transform: translateX(1rem);
+    }
+  }
+
+  .mobile-nav:popover-open a:nth-of-type(1) {
+    transition-delay: 60ms;
+  }
+
+  .mobile-nav:popover-open a:nth-of-type(2) {
+    transition-delay: 120ms;
+  }
+
+  @media (width <= 768px) {
+    .logo {
+      display: none;
+    }
+
+    .site-nav {
+      display: none;
+    }
+
+    .contrast-toggle {
+      margin-left: auto;
+    }
+
+    .nav-toggle {
+      display: block;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-nav,
+    .mobile-nav a,
+    .mobile-nav::backdrop,
+    .bar {
+      transition-duration: 0.01ms;
+      transition-delay: 0ms;
+    }
+
+    .mobile-nav {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector("[data-theme-toggle]");
+  const root = document.documentElement;
+
+  function syncToggleLabel() {
+    if (!toggle) return;
+    const isLight = root.dataset.theme === "light";
+    toggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark mode" : "Switch to light mode",
+    );
+  }
+
+  toggle?.addEventListener("click", () => {
+    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    syncToggleLabel();
+  });
+
+  syncToggleLabel();
+</script>

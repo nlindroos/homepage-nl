@@ -1,35 +1,38 @@
 ---
 import { Image } from "astro:assets";
 import cutout from "../assets/cutout.webp";
-import Button from "../components/Button.astro";
+import TextLink from "../components/TextLink.astro";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
-  <header>
-    <span class="logo">Nocturnal Muse</span>
-    <button
-      type="button"
-      class="contrast-toggle"
-      aria-label="Switch to light mode"
-      data-theme-toggle
-    >
-      ◑
-    </button>
-  </header>
-
   <main>
     <div class="hero">
       <div class="hero-text">
-        <p class="eyebrow">Volume I — The Archive</p>
+        <p class="eyebrow">Volume I — the Person</p>
         <h1>
-          <span class="line-white">Design for the</span>
-          <span class="line-accent">patient eye.</span>
+          <span class="line-white">Deliverer of</span>
+          <span class="line-accent">real outcomes.</span>
         </h1>
         <div class="body-copy">
           <p>
-            In an era defined by frantic velocity and fleeting attention, true
+            I turn complex needs into software that creates measurable value.
+          </p>
+          <p>
+            As an engineer, I work across product, architecture, and
+            infrastructure to shape systems that are scalable, maintainable, and
+            aligned with business goals.
+          </p>
+          <p>
+            I bring a broad perspective to technical decision-making:
+            understanding ownership priorities, user needs, team dynamics,
+            constraints, and the tradeoffs required to move things forward. I
+            focus on creating clarity where there is complexity, turning
+            competing perspectives into practical decisions that support
+            reliability, customer value, and long-term sustainability.
+          </p>
+          <!-- In an era defined by frantic velocity and fleeting attention, true
             luxury is found in the deliberate pause. We craft digital
             environments that demand reflection, rejecting the noise in favor of
             deep, intentional curation.
@@ -39,48 +42,24 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             High contrast, vast expanses of void, and typography that whispers
             rather than shouts. Here, form does not follow function — it
             elevates it into something enduring.
-          </p>
+          </p> -->
         </div>
-        <Button href="#">Enter the Archive</Button>
+        <TextLink href="/experience">See where I've delivered</TextLink>
       </div>
 
       <div class="hero-image">
-        <Image src={cutout} alt="Fig 1. Intentionality" class="portrait" />
-        <span class="fig-caption">Fig 1. Intentionality</span>
+        <Image src={cutout} alt="Portait" class="portrait" loading="eager" />
+        <span class="caption fig-caption">Fig 1. Intentionality</span>
       </div>
     </div>
   </main>
 
-  <footer>
-    <p>© 2024 Nocturnal Muse. Curated for the patient eye.</p>
-  </footer>
+  <!-- <footer>
+    <p>© 2024 You are here. Curated for the patient eye.</p>
+  </footer> -->
 </BaseLayout>
 
 <style>
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-md) var(--space-lg);
-  }
-
-  .logo {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.125rem;
-    color: var(--color-text-primary);
-  }
-
-  .contrast-toggle {
-    background: none;
-    border: none;
-    color: var(--color-text-secondary);
-    font-size: 1.25rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0;
-  }
-
   main {
     padding: var(--space-xl) var(--space-lg);
   }
@@ -89,7 +68,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     display: flex;
     gap: var(--space-xl);
     align-items: center;
-    max-width: 876px;
+    max-width: 1110px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -99,15 +78,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     flex-direction: column;
     gap: var(--space-lg);
     flex: 1;
-  }
-
-  .eyebrow {
-    font-size: 0.75rem;
-    font-family: var(--font-body);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    max-width: none;
   }
 
   h1 {
@@ -155,10 +125,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: rotate(180deg);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
     padding-left: var(--space-sm);
     align-self: flex-end;
     white-space: nowrap;
@@ -181,34 +147,17 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     .hero {
       flex-direction: column;
       align-items: flex-start;
-      grid-template-columns: 1fr;
     }
 
     .hero-image {
       order: -1;
+      width: auto;
+    }
+
+    .portrait {
+      width: auto;
+      height: 180px;
+      object-fit: contain;
     }
   }
 </style>
-
-<script>
-  const toggle = document.querySelector("[data-theme-toggle]");
-  const root = document.documentElement;
-
-  function syncToggleLabel() {
-    if (!toggle) return;
-    const isLight = root.dataset.theme === "light";
-    toggle.setAttribute(
-      "aria-label",
-      isLight ? "Switch to dark mode" : "Switch to light mode",
-    );
-  }
-
-  toggle?.addEventListener("click", () => {
-    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
-    root.dataset.theme = nextTheme;
-    localStorage.setItem("theme", nextTheme);
-    syncToggleLabel();
-  });
-
-  syncToggleLabel();
-</script>

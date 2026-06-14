@@ -1,0 +1,97 @@
+---
+import { experience } from "../data/experience";
+---
+
+<section class="experience-list" aria-labelledby="experience-list-heading">
+  <div class="section-header">
+    <p class="eyebrow">Volume II — Selected experience</p>
+    <h2 id="experience-list-heading">Where I've delivered.</h2>
+  </div>
+  <div class="rule"></div>
+  {
+    experience.map((item) => (
+      <>
+        <article class="role">
+          <p class="caption">{item.period}</p>
+          <p class="role-title">
+            {item.role} · {item.company}
+          </p>
+          {item.summary && <p class="body-large">{item.summary}</p>}
+          {item.description && <p class="body-large">{item.description}</p>}
+          {item.engagements && item.engagements.length > 0 && (
+            <ul class="engagements">
+              {item.engagements.map((engagement) => (
+                <li class="engagement">
+                  <p class="label-strong">{engagement.client}</p>
+                  <p class="engagement-detail">{engagement.description}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+        <div class="rule" />
+      </>
+    ))
+  }
+</section>
+
+<style>
+  .experience-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .rule {
+    height: 1px;
+    background-color: var(--color-divider);
+  }
+
+  .role {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Layout reset: roles span the full column rather than the global prose width */
+  .role p {
+    max-width: none;
+  }
+
+  .role-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .engagements {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-accent);
+  }
+
+  .engagement {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .engagement-detail {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+</style>

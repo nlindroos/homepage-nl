@@ -1,0 +1,182 @@
+---
+import ExperienceCards from "../components/ExperienceCards.astro";
+import ExperienceList from "../components/ExperienceList.astro";
+import SelectedWork from "../components/SelectedWork.astro";
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const experience = [
+  {
+    period: "2022 — Present",
+    role: "Staff Engineer",
+    company: "HappySignals",
+    description:
+      "Architecture and platform direction spanning product, infrastructure and developer experience.",
+  },
+  {
+    period: "2019 — 2022",
+    role: "Senior Engineer",
+    company: "Company B",
+    description: "Owned core services end to end, mentored engineers and drove reliability.",
+  },
+  {
+    period: "2016 — 2019",
+    role: "Engineer",
+    company: "Company C",
+    description: "Shipped customer-facing features across the stack.",
+  },
+  {
+    period: "2014 — 2016",
+    role: "Engineer",
+    company: "Company D",
+    description: "Full-stack delivery and outcome-driven foundations.",
+  },
+] as const;
+---
+
+<BaseLayout
+  title={`Experience layouts — ${SITE.title}`}
+  description="Experience layout exploration"
+>
+  <main class="explore">
+    <p class="explore-note">
+      Discovery — two layouts for the same data. Not linked from the site.
+    </p>
+
+    <div class="variant">
+      <h2 class="variant-label">Card-grid variant</h2>
+      <ExperienceCards />
+    </div>
+
+    <div class="variant">
+      <h2 class="variant-label">List / timeline variant</h2>
+      <ExperienceList />
+    </div>
+
+    <div class="list-block">
+      <SelectedWork />
+    </div>
+
+    <div class="list-block">
+      <ExperienceList />
+    </div>
+
+    <section class="experience" aria-labelledby="experience-heading">
+      <div class="experience-header">
+        <p class="eyebrow">Selected experience</p>
+        <h2 id="experience-heading">Where I've delivered.</h2>
+      </div>
+
+      <div class="experience-cards">
+        {
+          experience.map((item) => (
+            <article class="experience-card">
+              <p class="caption">{item.period}</p>
+              <p class="experience-role">
+                {item.role} · {item.company}
+              </p>
+              <p class="experience-description">{item.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .explore {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .explore-note {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .list-block {
+    margin-top: calc(var(--space-xl) + var(--space-lg));
+  }
+
+  .variant-label {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-divider);
+    max-width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+
+  .experience {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 1110px;
+    margin-top: calc(var(--space-xl) + var(--space-lg));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .experience-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .experience-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+
+  .experience-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    flex: 1 1 calc(50% - (var(--space-lg) / 2));
+    padding: var(--space-lg);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--border-radius);
+  }
+
+  .experience-role {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    max-width: none;
+  }
+
+  .experience-description {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+
+  @media (width <= 768px) {
+    .experience-card {
+      flex-basis: 100%;
+    }
+  }
+
+</style>
