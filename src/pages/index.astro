@@ -89,8 +89,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     display: flex;
     gap: var(--space-xl);
     align-items: center;
-
-    /* min-height: 80vh; */
+    max-width: 876px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-text {
@@ -112,7 +113,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   h1 {
     display: flex;
     flex-direction: column;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-size: 2.5rem;
     line-height: 1.05;
     gap: 0;
   }
@@ -178,12 +179,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
   @media (width <= 768px) {
     .hero {
+      flex-direction: column;
+      align-items: flex-start;
       grid-template-columns: 1fr;
     }
 
     .hero-image {
       order: -1;
-      max-height: 50vh;
     }
   }
 </style>

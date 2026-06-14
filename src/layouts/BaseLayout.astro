@@ -61,27 +61,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   [data-theme="dark"] {
-    --color-bg-primary: #0a192f;
-    --color-bg-secondary: #0d1c32;
-    --color-text-primary: #f8f9fa;
-    --color-text-secondary: #b7c8de;
-    --color-accent: #38debb;
-    --color-accent-hover: #2fc9a8;
-    --color-accent-contrast: #0a192f;
-    --color-border: rgb(255 255 255 / 12%);
-    --color-divider: rgb(255 255 255 / 5%);
+    --color-bg-primary: #0a1726;
+    --color-bg-secondary: #0f2236;
+    --color-text-primary: #f4f7fb;
+    --color-text-secondary: #a8bbd0;
+    --color-accent: #e8c474;
+    --color-primary: #3dd5b0;
+    --color-primary-hover: #5fe0c2;
+    --color-primary-contrast: #06231c;
+    --color-border: #21384f;
+    --color-divider: #1a2c40;
   }
 
   [data-theme="light"] {
-    --color-bg-primary: #f5f7fa;
+    --color-bg-primary: #f7fafc;
     --color-bg-secondary: #fff;
-    --color-text-primary: #0a192f;
-    --color-text-secondary: #44566b;
-    --color-accent: #0e9e82;
-    --color-accent-hover: #0b8a72;
-    --color-accent-contrast: #fff;
-    --color-border: rgb(10 25 47 / 12%);
-    --color-divider: rgb(10 25 47 / 6%);
+    --color-text-primary: #0a1726;
+    --color-text-secondary: #46586b;
+    --color-accent: #8a6d12;
+    --color-primary: #0b7a63;
+    --color-primary-hover: #096655;
+    --color-primary-contrast: #fff;
+    --color-border: #dce4ec;
+    --color-divider: #e7edf3;
   }
 
   /* Reset */
@@ -137,6 +139,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-width: 260px;
   }
 
   main {
