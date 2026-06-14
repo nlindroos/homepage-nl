@@ -1,14 +1,16 @@
 ---
 import { Image } from "astro:assets";
 import cutout from "../assets/cutout.webp";
-import Button from "../components/Button.astro";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
   <header>
-    <span class="logo">Nocturnal Muse</span>
+    <span class="logo">
+      <span class="logo-default">You are here.</span>
+      <span class="logo-hover" aria-hidden="true">and that's great.</span>
+    </span>
     <button
       type="button"
       class="contrast-toggle"
@@ -22,14 +24,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <main>
     <div class="hero">
       <div class="hero-text">
-        <p class="eyebrow">Volume I — The Archive</p>
+        <p class="eyebrow">Volume I — the Person</p>
         <h1>
-          <span class="line-white">Design for the</span>
-          <span class="line-accent">patient eye.</span>
+          <span class="line-white">Deliverer of</span>
+          <span class="line-accent">real outcomes.</span>
         </h1>
         <div class="body-copy">
           <p>
-            In an era defined by frantic velocity and fleeting attention, true
+            I turn complex needs into software that creates measurable value.
+          </p>
+          <p>
+            As an engineer, I work across product, architecture, and
+            infrastructure to shape systems that are scalable, maintainable, and
+            aligned with business goals.
+          </p>
+          <p>
+            I bring a broad perspective to technical decision-making:
+            understanding ownership priorities, user needs, team dynamics,
+            constraints, and the tradeoffs required to move things forward. I
+            focus on creating clarity where there is complexity, turning
+            competing perspectives into practical decisions that support
+            reliability, customer value, and long-term sustainability.
+          </p>
+          <!-- In an era defined by frantic velocity and fleeting attention, true
             luxury is found in the deliberate pause. We craft digital
             environments that demand reflection, rejecting the noise in favor of
             deep, intentional curation.
@@ -39,21 +56,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             High contrast, vast expanses of void, and typography that whispers
             rather than shouts. Here, form does not follow function — it
             elevates it into something enduring.
-          </p>
+          </p> -->
         </div>
-        <Button href="#">Enter the Archive</Button>
+        <!-- <Button href="#">What I have done</Button> -->
       </div>
 
       <div class="hero-image">
-        <Image src={cutout} alt="Fig 1. Intentionality" class="portrait" />
+        <Image src={cutout} alt="Portait" class="portrait" />
         <span class="fig-caption">Fig 1. Intentionality</span>
       </div>
     </div>
   </main>
 
-  <footer>
-    <p>© 2024 Nocturnal Muse. Curated for the patient eye.</p>
-  </footer>
+  <!-- <footer>
+    <p>© 2024 You are here. Curated for the patient eye.</p>
+  </footer> -->
 </BaseLayout>
 
 <style>
@@ -65,10 +82,35 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 
   .logo {
+    position: relative;
+    display: inline-grid;
     font-family: var(--font-display);
     font-style: italic;
     font-size: 1.125rem;
     color: var(--color-text-primary);
+  }
+
+  .logo-default,
+  .logo-hover {
+    grid-area: 1 / 1;
+    transition: opacity var(--transition) 50ms;
+  }
+
+  .logo-hover {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-default,
+  .logo:hover .logo-hover {
+    transition-delay: calc(var(--transition-duration) * 2);
+  }
+
+  .logo:hover .logo-default {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-hover {
+    opacity: 1;
   }
 
   .contrast-toggle {
@@ -186,6 +228,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     .hero-image {
       order: -1;
+      width: auto;
+    }
+
+    .portrait {
+      width: auto;
+      height: 180px;
+      object-fit: contain;
     }
   }
 </style>
