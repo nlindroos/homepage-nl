@@ -1,0 +1,146 @@
+---
+import { projects } from "../data/projects";
+---
+
+<section class="work" aria-labelledby="work-heading">
+  <div class="section-header">
+    <p class="eyebrow">Selected work</p>
+    <h2 id="work-heading" class="section-title">Outcomes, not artefacts.</h2>
+  </div>
+  <div class="rule"></div>
+  {
+    projects.map((project) => (
+      <>
+        <article class="work-item">
+          <p class="work-tag">{project.tagline}</p>
+          <h3 class="work-title">{project.title}</h3>
+          <p class="work-value">{project.value}</p>
+          {project.detail && (
+            <details class="disclosure">
+              <summary>
+                <span class="more">More +</span>
+                <span class="less">Less −</span>
+              </summary>
+              <div class="work-detail">
+                <p>{project.detail}</p>
+              </div>
+            </details>
+          )}
+        </article>
+        <div class="rule" />
+      </>
+    ))
+  }
+</section>
+
+<style>
+  .work {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 876px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .eyebrow {
+    font-size: 0.75rem;
+    font-family: var(--font-body);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    max-width: none;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    max-width: none;
+  }
+
+  .rule {
+    height: 1px;
+    background-color: var(--color-divider);
+  }
+
+  .work-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .work-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    max-width: none;
+  }
+
+  .work-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    max-width: none;
+  }
+
+  .work-value {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+
+  .disclosure {
+    margin-top: var(--space-sm);
+  }
+
+  .disclosure summary {
+    display: inline-flex;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .disclosure summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .less {
+    display: none;
+  }
+
+  .disclosure[open] .more {
+    display: none;
+  }
+
+  .disclosure[open] .less {
+    display: inline;
+  }
+
+  .work-detail {
+    margin-top: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-border);
+  }
+
+  .work-detail p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+</style>

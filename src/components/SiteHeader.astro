@@ -1,0 +1,128 @@
+---
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <span class="logo">
+    <span class="logo-default">You are here.</span>
+    <span class="logo-hover" aria-hidden="true">and that's great.</span>
+  </span>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>Home</a>
+    <a
+      href="/experience"
+      aria-current={currentPath.startsWith("/experience") ? "page" : undefined}
+    >
+      Experience
+    </a>
+  </nav>
+  <button
+    type="button"
+    class="contrast-toggle"
+    aria-label="Switch to light mode"
+    data-theme-toggle
+  >
+    ◑
+  </button>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  .logo {
+    position: relative;
+    display: inline-grid;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+  }
+
+  .logo-default,
+  .logo-hover {
+    grid-area: 1 / 1;
+    transition: opacity var(--transition) 50ms;
+  }
+
+  .logo-hover {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-default,
+  .logo:hover .logo-hover {
+    transition-delay: calc(var(--transition-duration) * 2);
+  }
+
+  .logo:hover .logo-default {
+    opacity: 0;
+  }
+
+  .logo:hover .logo-hover {
+    opacity: 1;
+  }
+
+  .contrast-toggle {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .site-nav a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    transition: color var(--transition);
+  }
+
+  .site-nav a:hover,
+  .site-nav a:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .site-nav a[aria-current="page"] {
+    color: var(--color-accent);
+    text-shadow: 0 0 0.8rem
+      color-mix(in srgb, var(--color-accent) 55%, transparent);
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector("[data-theme-toggle]");
+  const root = document.documentElement;
+
+  function syncToggleLabel() {
+    if (!toggle) return;
+    const isLight = root.dataset.theme === "light";
+    toggle.setAttribute(
+      "aria-label",
+      isLight ? "Switch to dark mode" : "Switch to light mode",
+    );
+  }
+
+  toggle?.addEventListener("click", () => {
+    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
+    root.dataset.theme = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+    syncToggleLabel();
+  });
+
+  syncToggleLabel();
+</script>

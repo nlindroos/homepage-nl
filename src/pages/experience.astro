@@ -1,0 +1,55 @@
+---
+import ExperienceList from "../components/ExperienceList.astro";
+import { SITE } from "../config";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title={`Experience layouts — ${SITE.title}`}
+  description="Experience layout exploration"
+>
+  <main class="explore">
+    <div class="list-block">
+      <ExperienceList />
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .explore {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding: var(--space-xl) var(--space-lg);
+  }
+
+  .explore-note {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    max-width: none;
+  }
+
+  .variant {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .variant-label {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--color-divider);
+    max-width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+</style>

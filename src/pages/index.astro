@@ -3,53 +3,9 @@ import { Image } from "astro:assets";
 import cutout from "../assets/cutout.webp";
 import { SITE } from "../config";
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const experience = [
-  {
-    period: "2022 — Present",
-    role: "Staff Engineer",
-    company: "HappySignals",
-    description:
-      "Architecture and platform direction spanning product, infrastructure and developer experience.",
-  },
-  {
-    period: "2019 — 2022",
-    role: "Senior Engineer",
-    company: "Company B",
-    description:
-      "Owned core services end to end, mentored engineers and drove reliability.",
-  },
-  {
-    period: "2016 — 2019",
-    role: "Engineer",
-    company: "Company C",
-    description: "Shipped customer-facing features across the stack.",
-  },
-  {
-    period: "2014 — 2016",
-    role: "Engineer",
-    company: "Company D",
-    description: "Full-stack delivery and outcome-driven foundations.",
-  },
-] as const;
 ---
 
 <BaseLayout title={SITE.title} description={SITE.description}>
-  <header>
-    <span class="logo">
-      <span class="logo-default">You are here.</span>
-      <span class="logo-hover" aria-hidden="true">and that's great.</span>
-    </span>
-    <button
-      type="button"
-      class="contrast-toggle"
-      aria-label="Switch to light mode"
-      data-theme-toggle
-    >
-      ◑
-    </button>
-  </header>
-
   <main>
     <div class="hero">
       <div class="hero-text">
@@ -92,32 +48,9 @@ const experience = [
 
       <div class="hero-image">
         <Image src={cutout} alt="Portait" class="portrait" />
-        <span class="fig-caption">Fig 1. Intentionality</span>
+        <span class="caption fig-caption">Fig 1. Intentionality</span>
       </div>
     </div>
-
-    <section class="experience" aria-labelledby="experience-heading">
-      <div class="experience-header">
-        <p class="eyebrow">Selected experience</p>
-        <h2 id="experience-heading" class="experience-title">
-          Where I've delivered.
-        </h2>
-      </div>
-
-      <div class="experience-cards">
-        {
-          experience.map((item) => (
-            <article class="experience-card">
-              <p class="experience-period">{item.period}</p>
-              <p class="experience-role">
-                {item.role} · {item.company}
-              </p>
-              <p class="experience-description">{item.description}</p>
-            </article>
-          ))
-        }
-      </div>
-    </section>
   </main>
 
   <!-- <footer>
@@ -126,55 +59,6 @@ const experience = [
 </BaseLayout>
 
 <style>
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--space-md) var(--space-lg);
-  }
-
-  .logo {
-    position: relative;
-    display: inline-grid;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.125rem;
-    color: var(--color-text-primary);
-  }
-
-  .logo-default,
-  .logo-hover {
-    grid-area: 1 / 1;
-    transition: opacity var(--transition) 50ms;
-  }
-
-  .logo-hover {
-    opacity: 0;
-  }
-
-  .logo:hover .logo-default,
-  .logo:hover .logo-hover {
-    transition-delay: calc(var(--transition-duration) * 2);
-  }
-
-  .logo:hover .logo-default {
-    opacity: 0;
-  }
-
-  .logo:hover .logo-hover {
-    opacity: 1;
-  }
-
-  .contrast-toggle {
-    background: none;
-    border: none;
-    color: var(--color-text-secondary);
-    font-size: 1.25rem;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0;
-  }
-
   main {
     padding: var(--space-xl) var(--space-lg);
   }
@@ -195,15 +79,6 @@ const experience = [
     flex-direction: column;
     gap: var(--space-lg);
     flex: 1;
-  }
-
-  .eyebrow {
-    font-size: 0.75rem;
-    font-family: var(--font-body);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    max-width: none;
   }
 
   h1 {
@@ -251,75 +126,9 @@ const experience = [
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: rotate(180deg);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
     padding-left: var(--space-sm);
     align-self: flex-end;
     white-space: nowrap;
-  }
-
-  .experience {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-    max-width: 1110px;
-    margin-top: calc(var(--space-xl) + var(--space-lg));
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .experience-header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .experience-title {
-    font-size: 2.25rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: var(--color-text-primary);
-    max-width: none;
-  }
-
-  .experience-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-lg);
-  }
-
-  .experience-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    flex: 1 1 calc(50% - (var(--space-lg) / 2));
-    padding: var(--space-lg);
-    background-color: var(--color-bg-secondary);
-    border: 1px solid var(--color-divider);
-    border-radius: var(--border-radius);
-  }
-
-  .experience-period {
-    font-size: 0.6563rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    max-width: none;
-  }
-
-  .experience-role {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    max-width: none;
-  }
-
-  .experience-description {
-    font-size: 0.9375rem;
-    color: var(--color-text-secondary);
-    max-width: none;
   }
 
   footer {
@@ -351,32 +160,5 @@ const experience = [
       height: 180px;
       object-fit: contain;
     }
-
-    .experience-card {
-      flex-basis: 100%;
-    }
   }
 </style>
-
-<script>
-  const toggle = document.querySelector("[data-theme-toggle]");
-  const root = document.documentElement;
-
-  function syncToggleLabel() {
-    if (!toggle) return;
-    const isLight = root.dataset.theme === "light";
-    toggle.setAttribute(
-      "aria-label",
-      isLight ? "Switch to dark mode" : "Switch to light mode",
-    );
-  }
-
-  toggle?.addEventListener("click", () => {
-    const nextTheme = root.dataset.theme === "light" ? "dark" : "light";
-    root.dataset.theme = nextTheme;
-    localStorage.setItem("theme", nextTheme);
-    syncToggleLabel();
-  });
-
-  syncToggleLabel();
-</script>

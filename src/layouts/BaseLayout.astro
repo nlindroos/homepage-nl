@@ -1,4 +1,6 @@
 ---
+import SiteHeader from "../components/SiteHeader.astro";
+
 interface Props {
   title: string;
   description?: string;
@@ -43,6 +45,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     />
   </head>
   <body>
+    <SiteHeader />
     <slot />
   </body>
 </html>
@@ -146,7 +149,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    min-width: 260px;
+    min-width: 320px;
   }
 
   main {
@@ -178,10 +181,42 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     max-width: 65ch;
   }
 
-  .card {
-    background-color: var(--color-bg-secondary);
-    padding: var(--space-lg);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-divider);
+  /* Typography */
+  .body-large {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
   }
+
+  .eyebrow {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .caption {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.6563rem;
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .label-strong {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--color-text-primary);
+  }
+
+  /* Typography end */
 </style>
